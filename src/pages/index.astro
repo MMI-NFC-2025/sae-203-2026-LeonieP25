@@ -1,9 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import accueilImg from '../assets/images/accueil.jpg';
+import { getAllArtistesByDate } from '../../backend/backend.mjs';
+import CardArtist from '../components/CardArtist.astro';
+
+const artistes = await getAllArtistesByDate();
+const artistesFeatured = artistes.slice(0, 3);
 ---
 
 <Layout titre="Accueil - Échos Sonores">
-	AHHH NIQUE SA MEREEE
-	JE VAIS TOUT FAIRE EXPLOSER
-	NSMMM LA PUTEEE
+    <section class="relative h-200 w-full">
+        <img 
+            src={accueilImg.src} 
+            alt="Festival Échos Sonores" 
+            class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-8 text-white font-[family-name:var(--font-montserrat)] lg:p-12">
+            <p class="mb-2 text-base font-normal lg:text-lg">Rendez-vous les 28-29-30 octobre 2026</p>
+            <h1 class="text-4xl font-bold lg:text-6xl">À Audincourt</h1>
+        </div>
+    </section>
+
+    <section class="bg-[#00b44b] px-8 py-16 font-[family-name:var(--font-montserrat)]">
+        <header class="mb-8 text-center">
+            <h2 class="text-4xl font-bold text-white lg:text-5xl">Programmation</h2>
+        </header>
+
+        <ul class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {artistesFeatured.map((artiste) => (
+                <CardArtist {...artiste} />
+            ))}
+        </ul>
+
+        <div class="mt-12 text-center">
+            <a href="/programme" class="inline-block rounded-xl bg-[#E30000] px-11 py-3 font-semibold text-white">
+                Billetterie
+            </a>
+        </div>
+    </section>
 </Layout>

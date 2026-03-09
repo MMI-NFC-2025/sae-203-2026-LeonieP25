@@ -1,0 +1,30 @@
+---
+import { getImageUrl } from '../../backend/backend.mjs';
+
+const { nom_artiste, dateheure_representation, photo_artiste } = Astro.props;
+
+const imageUrl = photo_artiste ? await getImageUrl(Astro.props, photo_artiste) : null;
+
+// Formatage de la date
+const date = new Date(dateheure_representation);
+const options = { day: 'numeric', month: 'long', year: 'numeric' };
+const dateFormatted = date.toLocaleDateString('fr-FR', options);
+---
+
+<li class="overflow-hidden rounded-2xl">
+    <div class="relative aspect-[4/3]">
+        {imageUrl ? (
+            <img 
+                src={imageUrl} 
+                alt={nom_artiste}
+                class="h-full w-full object-cover"
+            />
+        ) : (
+            <div class="h-full w-full bg-gray-700"></div>
+        )}
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+            <p class="font-bold text-white text-xl">{nom_artiste}</p>
+            <p class="text-white text-sm">{dateFormatted}</p>
+        </div>
+    </div>
+</li>

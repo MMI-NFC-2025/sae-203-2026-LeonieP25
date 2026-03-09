@@ -15,9 +15,9 @@ import logo from '../assets/icons/logo-echos-sonores.svg';
         aria-controls="mainNav"
         id="menu-btn">
 
-        <span class="group-aria-expanded:translate-y-[11px] group-aria-expanded:rotate-45" aria-hidden="true"></span>
+        <span class="group-aria-expanded:translate-y-[12px] group-aria-expanded:rotate-45" aria-hidden="true"></span>
         <span class="group-aria-expanded:opacity-0" aria-hidden="true"></span>
-        <span class="group-aria-expanded:-translate-y-[11px] group-aria-expanded:-rotate-45" aria-hidden="true"></span>
+        <span class="group-aria-expanded:-translate-y-[12px] group-aria-expanded:-rotate-45" aria-hidden="true"></span>
     </button>
 
     <nav 
@@ -28,14 +28,14 @@ import logo from '../assets/icons/logo-echos-sonores.svg';
         <a href="/" class="mb-8">
             <img src={logo.src} alt="Echos Sonores" class="h-[50px]">
         </a>
-        <ul class="list-none m-0 p-0 space-y-2 *:opacity-0 *:-translate-y-2 *:transition-all *:duration-300 *:ease-in-out aria-[hidden=false]:*:opacity-100 aria-[hidden=false]:*:translate-y-0">
-            <li class="delay-[50ms]"><a class="text-white no-underline text-xl" href="/">Accueil</a></li>
-            <li class="delay-100"><a class="text-white no-underline text-xl" href="/festival">Le festival</a></li>
-            <li class="delay-150"><a class="text-white no-underline text-xl" href="/programme">Programme</a></li>
-            <li class="delay-200"><a class="text-white no-underline text-xl" href="/artistes">Artistes</a></li>
-            <li class="delay-[250ms]"><a class="text-white no-underline text-xl" href="/infos">Infos pratiques</a></li>
-            <li class="delay-300"><a class="text-white no-underline text-xl" href="/scenes">Scènes</a></li>
-            <li class="delay-[350ms]"><a class="text-white no-underline text-xl" href="/contact">Contact</a></li>
+        <ul id="mainMenu" aria-hidden="true" class="list-none font-semibold mt-5 p-0 space-y-2 *:opacity-0 *:-translate-y-2 *:transition-all *:duration-300 *:ease-in-out aria-[hidden=false]:*:opacity-100 aria-[hidden=false]:*:translate-y-0">
+            <li class="delay-[50ms]"><a class="text-[24px] text-white no-underline" href="/">Accueil</a></li>
+            <li class="delay-100"><a class="text-[24px] text-white no-underline" href="/festival">Le festival</a></li>
+            <li class="delay-150"><a class="text-[24px] text-white no-underline" href="/programme">Programme</a></li>
+            <li class="delay-200"><a class="text-[24px] text-white no-underline" href="/artistes">Artistes</a></li>
+            <li class="delay-[250ms]"><a class="text-[24px] text-white no-underline" href="/infos">Infos pratiques</a></li>
+            <li class="delay-300"><a class="text-[24px] text-white no-underline" href="/scenes">Scènes</a></li>
+            <li class="delay-[350ms]"><a class="text-[24px] text-white no-underline" href="/contact">Contact</a></li>
         </ul>
     </nav>
 </header>
@@ -43,15 +43,17 @@ import logo from '../assets/icons/logo-echos-sonores.svg';
 <script>
     const toggle = document.querySelector('#menu-btn');
     const nav = document.querySelector('#mainNav');
+    const menu = document.querySelector('#mainMenu');
     const page = document.body;
 
-    if (toggle && nav) {
+    if (toggle && nav && menu) {
         toggle.addEventListener('click', () => {
             const isOpen = toggle.ariaExpanded === 'true';
             const isClosed = !isOpen;
 
             toggle.ariaExpanded = String(isClosed);
             nav.ariaHidden = String(isOpen);
+            menu.ariaHidden = String(isOpen);
             page.classList.toggle('overflow-hidden', isClosed);
         });
     }

@@ -2,12 +2,12 @@ import PocketBase from 'pocketbase';
 const pb = new PocketBase('https://festival.leonie-pruniaux.fr');
 
 export async function getImageUrl(record, recordImage) {
-    return db.files.getURL(record, recordImage);
+    return pb.files.getURL(record, recordImage);
 }
 
 export async function getAllArtistesByDate() {
     const records = await pb.collection('Artistes').getFullList({
-        sort: 'date_representation'
+        sort: 'dateheure_representation'
     });
     return records;
 }
@@ -39,7 +39,7 @@ export async function getSceneById(id) {
 export async function getArtistesBySceneId(sceneId) {
     const records = await pb.collection('Artistes').getFullList({
         filter: `scene = "${sceneId}"`,
-        sort: 'date_representation'
+        sort: 'dateheure_representation'
     });
     return records;
 }
@@ -47,7 +47,7 @@ export async function getArtistesBySceneId(sceneId) {
 export async function getArtistesBySceneName(sceneName) {
     const records = await pb.collection('Artistes').getFullList({
         expand: 'scene',
-        sort: 'date_representation'
+        sort: 'dateheure_representation'
     });
     const filteredRecords = records.filter(artiste => 
         artiste.expand && artiste.expand.scene && artiste.expand.scene.nom === sceneName
