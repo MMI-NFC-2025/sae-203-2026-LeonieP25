@@ -1,0 +1,62 @@
+---
+import logo from '../assets/icons/logo-echos-sonores.svg';
+import logoIci from '../assets/icons/logo-ici.svg';
+import logoEstRepublicain from '../assets/icons/estrepublicain.avif';
+---
+
+<footer class="bg-[#00852a] text-white py-8 px-6 text-sm">
+    <div class="max-w-7xl mx-auto">
+        <!-- Top section with logo and newsletter -->
+        <div class="flex flex-col sm:flex-row justify-between items-start gap-6 mb-8">
+            <img src={logo.src} alt="Echos Sonores" class="h-[60px] w-auto">
+            
+            <div class="text-left">
+                <p class="mb-2 font-semibold text-base">Inscrivez-vous à <br>notre newsletter&nbsp;!</p>
+                <a href="#newsletter" class="inline-block py-2 px-5 bg-[#00b44b] rounded-full text-white no-underline font-semibold">Je m'inscris !</a>
+            </div>
+        </div>
+
+        <!-- Middle section -->
+        <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-[1.2fr_1fr_1.1fr]">
+            <!-- Navigation -->
+            <nav>
+                <ul class="list-none m-0 p-0">
+                    <li class="mb-1"><a href="/" class="text-white no-underline">Accueil</a></li>
+                    <li class="mb-1"><a href="/festival" class="text-white no-underline">Le festival</a></li>
+                    <li class="mb-1"><a href="/programme" class="text-white no-underline">Programme</a></li>
+                    <li class="mb-1"><a href="/artistes" class="text-white no-underline">Artistes</a></li>
+                    <li class="mb-1"><a href="/infos" class="text-white no-underline">Infos pratiques</a></li>
+                    <li class="mb-1"><a href="/scenes" class="text-white no-underline">Scènes</a></li>
+                    <li class="mb-1"><a href="/contact" class="text-white no-underline">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Partners -->
+            <div class="flex flex-row gap-3 items-start md:flex-col">
+                <img src={logoEstRepublicain.src} alt="L'Est Républicain" class="max-w-[120px] h-auto">
+                <img src={logoIci.src} alt="Ici" class="max-w-[120px] h-auto">
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <p class="mb-2 font-semibold">COORDONNÉES</p>
+                <div class="space-y-1">
+                    <p class="m-0">Rue de Dasle, Audincourt</p>
+                    <p class="m-0"><a href="mailto:info@echossonores.fr" class="text-white">info@echossonores.fr</a></p>
+                    <p class="m-0"><a href="/contact" class="text-white">Page contact</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal section -->
+        <div class="border-t border-white/25 pt-3 text-center">
+            <p class="my-1 text-xs">
+                <a href="#" class="text-white no-underline">Mentions légales</a> ·
+                <a href="#" class="text-white no-underline">Politique de confidentialité (RGPD)</a> ·
+                <a href="#" class="text-white no-underline">Conditions générales de vente (CGV)</a> ·
+                <a href="#" class="text-white no-underline">Gestion des cookies</a>
+            </p>
+            <p class="my-1 text-[0.75rem] opacity-90">Copyright © 2026 Echos Sonores</p>
+        </div>
+    </div>
+</footer>
