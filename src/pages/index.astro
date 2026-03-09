@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import accueilImg from '../assets/images/accueil.jpg';
+import mapImg from '../assets/images/mapfestival.jpg';
+import logoIci from '../assets/icons/logo-ici.svg';
+import logoEstRepublicain from '../assets/icons/estrepublicain.avif';
 import { getAllArtistesByDate } from '../../backend/backend.mjs';
 import CardArtist from '../components/CardArtist.astro';
 
@@ -17,13 +20,13 @@ const artistesFeatured = artistes.slice(0, 3);
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
         
-        <div class="absolute bottom-0 left-0 right-0 p-8 text-white font-[family-name:var(--font-montserrat)] lg:p-12">
+        <div class="absolute bottom-0 left-0 right-0 p-8 text-white lg:p-12">
             <p class="mb-2 text-base font-normal lg:text-lg">Rendez-vous les 28-29-30 octobre 2026</p>
             <h1 class="text-4xl font-bold lg:text-6xl">À Audincourt</h1>
         </div>
     </section>
 
-    <section class="bg-[#00b44b] px-8 py-16 font-[family-name:var(--font-montserrat)]">
+    <section class="bg-[#00b44b] px-8 pt-16 pb-12">
         <header class="mb-8 text-center">
             <h2 class="text-4xl font-bold text-white lg:text-5xl">Programmation</h2>
         </header>
@@ -39,5 +42,82 @@ const artistesFeatured = artistes.slice(0, 3);
                 Billetterie
             </a>
         </div>
+    </section>
+
+    <section class="bg-[#00b44b] px-8 pt-12 pb-12">
+        <header class="mb-8 text-center">
+            <h2 class="text-4xl font-bold text-white lg:text-5xl">Infos pratiques</h2>
+            <p class="mt-4 text-white">
+                Dates : Du <span class="text-[#E30000]">28</span> au <span class="text-[#E30000]">31</span> octobre 2026<br>
+                Lieu : Rue de Dasle, Audincourt
+            </p>
+        </header>
+
+        <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+            <figure>
+                <img 
+                    src={mapImg.src} 
+                    alt="Plan du site du festival Echos Sonores" 
+                    class="h-auto w-full rounded-lg"
+                />
+            </figure>
+
+            <div class="text-white">
+                <p class="mb-4">
+                    <span class="font-bold">Ouverture :</span> 15h
+                </p>
+                <p class="mb-4">
+                    <span class="font-bold">Fermeture :</span> 2h du matin
+                </p>
+                <p>
+                    <span class="font-bold">Concerts principaux :</span> en soirée à partir de 20h
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-[#00b44b] px-8 pt-12 pb-12">
+        <header class="mb-8 text-center">
+            <h2 class="text-4xl font-bold text-white lg:text-5xl">Tarifs</h2>
+        </header>
+
+        <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+            <div class="text-white">
+                <h3 class="mb-4 text-2xl font-bold">Pass multi-jours</h3>
+                <h4 class="text-xl font-semibold">Pass 4 jours (28–31 octobre) : 95€</h4>
+                <p class="mt-2">Pass 3 jours au choix : 70€</p>
+                <p class="mt-2">Billets à l'unité : 35€</p>
+            </div>
+
+            <div class="text-white">
+                <h3 class="mb-4 text-2xl font-bold">Tarifs réduits</h3>
+                <h4 class="text-xl">
+                    <p>Tarif étudiant (18–28 ans)</p>
+                    <p class="mt-2">Tarif jeune (18–25 ans)</p>
+                    <p class="mt-2">Gratuit pour les moins de 12 ans</p>
+                </h4>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="/programme" class="inline-block rounded-xl bg-[#E30000] px-11 py-3 font-semibold text-white">
+                Billetterie
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-[#00b44b] px-8 pt-12 pb-16">
+        <header class="mb-8 text-center">
+            <h2 class="text-4xl font-bold text-white lg:text-5xl">Nos partenaires</h2>
+        </header>
+
+        <ul class="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-8">
+            <li>
+                <img src={logoEstRepublicain.src} alt="L'Est Républicain" class="h-20 w-auto" />
+            </li>
+            <li>
+                <img src={logoIci.src} alt="France Bleu Ici" class="h-20 w-auto" />
+            </li>
+        </ul>
     </section>
 </Layout>
