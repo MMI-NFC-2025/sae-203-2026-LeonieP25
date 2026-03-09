@@ -1,6 +1,10 @@
 import PocketBase from 'pocketbase';
 const pb = new PocketBase('https://festival.leonie-pruniaux.fr');
 
+export async function getImageUrl(record, recordImage) {
+    return db.files.getURL(record, recordImage);
+}
+
 export async function getAllArtistesByDate() {
     const records = await pb.collection('Artistes').getFullList({
         sort: 'date_representation'

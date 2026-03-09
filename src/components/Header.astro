@@ -2,100 +2,57 @@
 import logo from '../assets/icons/logo-echos-sonores.svg';
 ---
 
-<header class="fixed top-0 left-0 right-0 bg-[#006711] px-4 py-3 flex items-center justify-between z-[1000]">
-    <a href="/" class="header__link">
+<header class="fixed top-0 left-0 right-0 bg-[#006711] px-4 py-3 flex items-center justify-between z-[1000] group/header">
+    <a href="/" class="relative z-20">
         <img src={logo.src} alt="Echos Sonores" class="h-[50px] block">
     </a>
 
     <button 
-        class="menu-btn relative w-10 h-7 p-0 border-0 bg-transparent cursor-pointer z-[2001]" 
+        class="group relative z-20 flex h-7 w-10 flex-col justify-between *:h-[3px] *:w-full *:bg-white *:rounded-full *:transition-all *:duration-300 *:ease-in-out" 
         type="button" 
         aria-label="menu" 
         aria-expanded="false"
         aria-controls="mainNav"
-    >
-        <span class="menu-btn__bar absolute left-0 right-0 w-full h-[3px] bg-white rounded-full top-1/2" style="transform: translateY(-11px);"></span>
-        <span class="menu-btn__bar absolute left-0 right-0 w-full h-[3px] bg-white rounded-full top-1/2" style="transform: translateY(-1.5px);"></span>
-        <span class="menu-btn__bar absolute left-0 right-0 w-full h-[3px] bg-white rounded-full top-1/2" style="transform: translateY(8px);"></span>
+        id="menu-btn">
+
+        <span class="group-aria-expanded:translate-y-[11px] group-aria-expanded:rotate-45" aria-hidden="true"></span>
+        <span class="group-aria-expanded:opacity-0" aria-hidden="true"></span>
+        <span class="group-aria-expanded:-translate-y-[11px] group-aria-expanded:-rotate-45" aria-hidden="true"></span>
     </button>
 
     <nav 
-        class="fixed inset-0 z-[999] bg-[#006711] px-4 pt-3 pb-6 flex flex-col items-start opacity-0 transition-opacity duration-300" 
+        class="fixed inset-0 z-10 bg-[#006711] px-4 pt-3 pb-6 flex flex-col items-start opacity-0 invisible transition-all duration-300 ease-in-out aria-hidden:opacity-0 aria-hidden:invisible aria-[hidden=false]:opacity-100 aria-[hidden=false]:visible" 
         id="mainNav" 
-        hidden
+        aria-hidden="true"
     >
-        <a href="/" class="menu__logo mb-8">
+        <a href="/" class="mb-8">
             <img src={logo.src} alt="Echos Sonores" class="h-[50px]">
         </a>
-        <ul class="list-none m-0 p-0 space-y-2">
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/">Accueil</a></li>
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/festival">Le festival</a></li>
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/programme">Programme</a></li>
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/artistes">Artistes</a></li>
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/infos">Infos pratiques</a></li>
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/scenes">Scènes</a></li>
-            <li class="menu__item opacity-0 translate-y-2 transition-all duration-300"><a class="text-white no-underline text-xl" href="/contact">Contact</a></li>
+        <ul class="list-none m-0 p-0 space-y-2 *:opacity-0 *:-translate-y-2 *:transition-all *:duration-300 *:ease-in-out aria-[hidden=false]:*:opacity-100 aria-[hidden=false]:*:translate-y-0">
+            <li class="delay-[50ms]"><a class="text-white no-underline text-xl" href="/">Accueil</a></li>
+            <li class="delay-100"><a class="text-white no-underline text-xl" href="/festival">Le festival</a></li>
+            <li class="delay-150"><a class="text-white no-underline text-xl" href="/programme">Programme</a></li>
+            <li class="delay-200"><a class="text-white no-underline text-xl" href="/artistes">Artistes</a></li>
+            <li class="delay-[250ms]"><a class="text-white no-underline text-xl" href="/infos">Infos pratiques</a></li>
+            <li class="delay-300"><a class="text-white no-underline text-xl" href="/scenes">Scènes</a></li>
+            <li class="delay-[350ms]"><a class="text-white no-underline text-xl" href="/contact">Contact</a></li>
         </ul>
     </nav>
 </header>
 
 <script>
-    // @ts-nocheck
-    const menuBtn = document.querySelector('.menu-btn');
-    const siteMenu = document.getElementById('mainNav');
+    const toggle = document.querySelector('#menu-btn');
+    const nav = document.querySelector('#mainNav');
+    const page = document.body;
 
-    if (menuBtn && siteMenu) {
-        menuBtn.addEventListener('click', () => {
-            const isOpen = menuBtn.classList.contains('menu-btn--open');
-            
-            if (isOpen) {
-                siteMenu.classList.remove('menu--open');
-                menuBtn.classList.remove('menu-btn--open');
-                menuBtn.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
-                setTimeout(() => siteMenu.hidden = true, 300);
-            } else {
-                siteMenu.hidden = false;
-                siteMenu.classList.add('menu--open');
-                menuBtn.classList.add('menu-btn--open');
-                menuBtn.setAttribute('aria-expanded', 'true');
-                document.body.style.overflow = 'hidden';
-            }
+    if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+            const isOpen = toggle.ariaExpanded === 'true';
+            const isClosed = !isOpen;
+
+            toggle.ariaExpanded = String(isClosed);
+            nav.ariaHidden = String(isOpen);
+            page.classList.toggle('overflow-hidden', isClosed);
         });
     }
 </script>
-
-<style>
-    .menu-btn__bar {
-        transition: transform 0.3s, opacity 0.2s;
-    }
-
-    .menu-btn--open .menu-btn__bar:nth-child(1) {
-        transform: translateY(0) rotate(45deg) !important;
-    }
-
-    .menu-btn--open .menu-btn__bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-btn--open .menu-btn__bar:nth-child(3) {
-        transform: translateY(0) rotate(-45deg) !important;
-    }
-
-    #mainNav.menu--open {
-        opacity: 1;
-    }
-
-    #mainNav.menu--open .menu__item {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    #mainNav.menu--open .menu__item:nth-child(1) { transition-delay: 0.05s; }
-    #mainNav.menu--open .menu__item:nth-child(2) { transition-delay: 0.1s; }
-    #mainNav.menu--open .menu__item:nth-child(3) { transition-delay: 0.15s; }
-    #mainNav.menu--open .menu__item:nth-child(4) { transition-delay: 0.2s; }
-    #mainNav.menu--open .menu__item:nth-child(5) { transition-delay: 0.25s; }
-    #mainNav.menu--open .menu__item:nth-child(6) { transition-delay: 0.3s; }
-    #mainNav.menu--open .menu__item:nth-child(7) { transition-delay: 0.35s; }
-</style>
