@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAllArtistesByDate } from '../../backend/backend.mjs';
+
+// On récupère les artistes avec leur date/heure et scène depuis PocketBase
+const artistes = await getAllArtistesByDate();
+---
+
+<Layout titre="Programme - Échos Sonores">
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+        <header class="col-span-full mb-4 text-center lg:col-span-10 lg:col-start-2">
+            <h1 class="text-4xl font-semibold lg:text-5xl">Programmation</h1>
+        </header>
+
+        <div class="col-span-full overflow-x-auto lg:col-span-10 lg:col-start-2">
+            <table class="w-full border-collapse text-left">
+                <tr class="border-b-2 border-white/30">
+                    <td class="px-4 py-4 text-lg font-bold lg:text-xl">Artiste</td>
+                    <td class="px-4 py-4 text-lg font-bold lg:text-xl">Date & Heure</td>
+                    <td class="px-4 py-4 text-lg font-bold lg:text-xl">Scène</td>
+                </tr>
+                
+                {artistes.map((artiste) => (
+                    <tr class="border-b border-white/20">
+                        <td class="px-4 py-4 text-base lg:text-lg">{artiste.nom_artiste}</td>
+                        <td class="px-4 py-4 text-base lg:text-lg">
+                            {new Date(artiste.dateheure_representation).toLocaleDateString('fr-FR')} à {new Date(artiste.dateheure_representation).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                        </td>
+                        <td class="px-4 py-4 text-base lg:text-lg">
+                            {artiste.expand && artiste.expand.scene_representation ? artiste.expand.scene_representation.nom_scene : 'Non définie'}
+                        </td>
+                    </tr>
+                ))}
+            </table>
+        </div>
+
+        <div class="col-span-full mt-12 flex justify-center lg:col-span-10 lg:col-start-2">
+            <a 
+                href="/assets/pdf/programme-echos-sonores.pdf"
+                class="rounded-lg bg-[#F4F428] px-8 py-4 text-center text-lg font-bold text-[#006711] transition-transform hover:scale-105 lg:text-xl"
+            >
+                Télécharger<br>le programme
+            </a>
+        </div>
+    </section>
+</Layout>

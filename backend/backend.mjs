@@ -7,7 +7,8 @@ export async function getImageUrl(record, recordImage) {
 
 export async function getAllArtistesByDate() {
     const records = await pb.collection('Artistes').getFullList({
-        sort: 'dateheure_representation'
+        sort: 'dateheure_representation',
+        expand: 'scene_representation'
     });
     return records;
 }
