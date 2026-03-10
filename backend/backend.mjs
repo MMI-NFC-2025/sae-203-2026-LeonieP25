@@ -15,14 +15,14 @@ export async function getAllArtistesByDate() {
 
 export async function getAllScenesByName() {
     const records = await pb.collection('Scenes').getFullList({
-        sort: 'nom'
+        sort: 'nom_scene'
     });
     return records;
 }
 
 export async function getAllArtistesByName() {
     const records = await pb.collection('Artistes').getFullList({
-        sort: 'nom'
+        sort: 'nom_artiste'
     });
     return records;
 }

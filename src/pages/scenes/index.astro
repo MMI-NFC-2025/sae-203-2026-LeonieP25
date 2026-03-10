@@ -1,0 +1,52 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import { getAllScenesByName, getImageUrl } from '../../../backend/backend.mjs';
+
+let scenes = await getAllScenesByName();
+
+let scenesAvecImages = [];
+for (const scene of scenes) {
+    const imageUrl = scene.photo_scene ? await getImageUrl(scene, scene.photo_scene) : null;
+    scenesAvecImages.push({ ...scene, imageUrl });
+}
+---
+
+<Layout titre="Scènes - Échos Sonores">
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+        <header class="col-span-full mb-8 text-center lg:col-span-10 lg:col-start-2">
+            <h1 class="text-4xl font-semibold lg:text-5xl">Scènes</h1>
+        </header>
+
+        <ul id="scenesList" class="col-span-full grid gap-6 md:grid-cols-2 lg:col-span-10 lg:col-start-2 lg:grid-cols-2">
+            {scenesAvecImages.map((scene: any) => (
+                <li class="scene-card overflow-hidden rounded-2xl bg-white shadow-lg transition-transform hover:scale-105">
+                    <a href={`/scenes/${scene.id}`} class="block">
+                        <div class="relative aspect-video">
+                            {scene.imageUrl ? (
+                                <img 
+                                    src={scene.imageUrl} 
+                                    alt={scene.nom_scene}
+                                    class="h-full w-full object-cover"
+                                />
+                            ) : (
+                                <div class="flex h-full items-center justify-center bg-[#006711]">
+                                    <p class="text-3xl font-bold text-white">{scene.nom_scene}</p>
+                                </div>
+                            )}
+                            <div class="absolute inset-0 bg-black/40 opacity-0 transition-opacity hover:opacity-100 flex items-center justify-center">
+                                <span class="rounded-lg bg-[#e30000] px-6 py-3 font-bold text-white">
+                                    En savoir plus
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-2xl font-bold text-[#00b44b]">{scene.nom_scene}</p>
+                        </div>
+                    </a>
+                </li>
+            ))}
+        </ul>
+    </section>
+</Layout>

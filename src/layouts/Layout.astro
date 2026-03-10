@@ -36,10 +36,16 @@ const { titre } = Astro.props;
 			backToTopBtn.textContent = '↑';
 			document.body.appendChild(backToTopBtn);
 
+			const menuBtn = document.getElementById('menu-btn');
+			const mainNav = document.getElementById('mainNav');
+
 			const toggleBackToTop = () => {
-				const isVisible = window.scrollY > 200;
-				backToTopBtn.classList.toggle('is-visible', isVisible);
-				backToTopBtn.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+				const isMenuOpen = mainNav && mainNav.getAttribute('aria-hidden') === 'false';
+				const isScrolledDown = window.scrollY > 200;
+				const shouldShow = isScrolledDown && !isMenuOpen;
+				
+				backToTopBtn.classList.toggle('is-visible', shouldShow);
+				backToTopBtn.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
 			};
 
 			backToTopBtn.addEventListener('click', () => {
@@ -47,6 +53,13 @@ const { titre } = Astro.props;
 			});
 
 			window.addEventListener('scroll', toggleBackToTop, { passive: true });
+			
+			if (menuBtn) {
+				menuBtn.addEventListener('click', () => {
+					setTimeout(toggleBackToTop, 50);
+				});
+			}
+			
 			toggleBackToTop();
 		</script>
 	</body>
