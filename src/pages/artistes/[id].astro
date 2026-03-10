@@ -13,8 +13,8 @@ if (!artiste) {
 }
 
 const imageUrl = artiste.photo_artiste ? await getImageUrl(artiste, artiste.photo_artiste) : null;
-const date = new Date(artiste.dateheure_representation);
 const sceneName = artiste.expand && artiste.expand.scene_representation ? artiste.expand.scene_representation.nom_scene : '';
+const dateStr = artiste.dateheure_representation.replace('T', ' ').replace('Z', '').substring(0, 16);
 
 const galerieUrls = [];
 if (artiste.galerie_artiste && artiste.galerie_artiste.length > 0) {
@@ -43,9 +43,7 @@ if (artiste.galerie_artiste && artiste.galerie_artiste.length > 0) {
                 
                 <div>
                     <h1 class="mb-4 text-5xl font-bold">{artiste.nom_artiste}</h1>
-                    <p class="mb-2 text-xl">
-                        {date.toLocaleDateString('fr-FR')} à {date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                    </p>
+                    <p class="mb-2 text-xl">{artiste.dateheure_representation}</p>
                     {sceneName && <p class="mb-6 text-xl">Scène : {sceneName}</p>}
                     
                     {artiste.description && (

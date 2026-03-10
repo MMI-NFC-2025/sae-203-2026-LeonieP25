@@ -65,6 +65,8 @@ for (const artiste of artistes) {
                 const day = date.getDate();
                 const sceneName = artiste.expand && artiste.expand.scene_representation ? artiste.expand.scene_representation.nom_scene : '';
                 
+                const dateStr = artiste.dateheure_representation.replace('T', ' ').replace('Z', '').substring(0, 16);
+                
                 return (
                     <li class="artist-card overflow-hidden rounded-2xl" data-name={artiste.nom_artiste.toLowerCase()} data-scene={sceneName.toLowerCase()} data-date={day}>
                         <a href={`/artistes/${artiste.id}`}>
@@ -80,7 +82,7 @@ for (const artiste of artistes) {
                                 )}
                                 <div class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
                                     <p class="text-xl font-bold text-white">{artiste.nom_artiste}</p>
-                                    <p class="text-sm text-white">{artiste.dateheure_representation}</p>
+                                    <p class="text-sm text-white">{dateStr}</p>
                                     {sceneName && <p class="text-sm text-white">Scène : {sceneName}</p>}
                                 </div>
                             </div>
