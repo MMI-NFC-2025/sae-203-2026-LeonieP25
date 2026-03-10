@@ -20,17 +20,18 @@ const artistes = await getAllArtistesByDate();
                     <td class="px-4 py-4 text-lg font-bold lg:text-xl">Scène</td>
                 </tr>
                 
-                {artistes.map((artiste) => (
+                {artistes.map((artiste) => {
+                    const dateStr = artiste.dateheure_representation.replace('T', ' ').replace('Z', '').substring(0, 16);
+                    return (
                     <tr class="border-b border-white/20">
                         <td class="px-4 py-4 text-base lg:text-lg">{artiste.nom_artiste}</td>
-                        <td class="px-4 py-4 text-base lg:text-lg">
-                            {new Date(artiste.dateheure_representation).toLocaleDateString('fr-FR')} à {new Date(artiste.dateheure_representation).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                        </td>
+                        <td class="px-4 py-4 text-base lg:text-lg">{dateStr}</td>
                         <td class="px-4 py-4 text-base lg:text-lg">
                             {artiste.expand && artiste.expand.scene_representation ? artiste.expand.scene_representation.nom_scene : 'Non définie'}
                         </td>
                     </tr>
-                ))}
+                    );
+                })}
             </table>
         </div>
 
