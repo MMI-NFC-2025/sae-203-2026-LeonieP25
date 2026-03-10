@@ -64,23 +64,23 @@ if (Astro.request.method === "POST") {
 ---
 
 <Layout titre={artisteToEdit ? "Modifier un artiste - Échos Sonores" : "Ajouter un artiste - Échos Sonores"}>
-    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white lg:pt-40 lg:pb-28">
         <div class="col-span-full lg:col-span-8 lg:col-start-3">
-            <h1 class="mb-8 text-center text-4xl font-bold lg:text-5xl">{artisteToEdit ? "Modifier" : "Ajouter"} un artiste</h1>
+            <h1 class="mb-8 text-center text-4xl font-bold lg:text-5xl lg:mb-12">{artisteToEdit ? "Modifier" : "Ajouter"} un artiste</h1>
             
             {message && (
-                <div class="mb-6 rounded-lg bg-white/20 p-4 text-center text-lg">
+                <div class="mb-6 rounded-lg bg-white/20 p-4 text-center text-lg lg:mb-8 lg:p-6 lg:text-xl">
                     {message}
                 </div>
             )}
             
-            <form action="/artistes/add" method="POST" enctype="multipart/form-data" class="space-y-6 rounded-2xl bg-white/10 p-8">
+            <form action="/artistes/add" method="POST" enctype="multipart/form-data" class="space-y-6 rounded-2xl bg-white/10 p-8 lg:space-y-8 lg:p-10">
                 {artisteToEdit && (
                     <input type="hidden" name="artiste_id" value={artisteToEdit.id} />
                 )}
                 
                 <div>
-                    <label for="nom_artiste" class="mb-2 block text-lg font-bold">Nom de l'artiste *</label>
+                    <label for="nom_artiste" class="mb-2 block text-lg font-bold lg:mb-3 lg:text-xl">Nom de l'artiste *</label>
                     <input 
                         type="text" 
                         id="nom_artiste"
@@ -95,7 +95,7 @@ if (Astro.request.method === "POST") {
                 </div>
 
                 <div>
-                    <label for="dateheure_representation" class="mb-2 block text-lg font-bold">Date et heure de représentation *</label>
+                    <label for="dateheure_representation" class="mb-2 block text-lg font-bold lg:mb-3 lg:text-xl">Date et heure de représentation *</label>
                     <input 
                         type="datetime-local" 
                         id="dateheure_representation"
@@ -107,7 +107,7 @@ if (Astro.request.method === "POST") {
                 </div>
 
                 <div>
-                    <label for="scene_representation" class="mb-2 block text-lg font-bold">Scène *</label>
+                    <label for="scene_representation" class="mb-2 block text-lg font-bold lg:mb-3 lg:text-xl">Scène *</label>
                     <select 
                         id="scene_representation"
                         name="scene_representation" 
@@ -122,7 +122,7 @@ if (Astro.request.method === "POST") {
                 </div>
 
                 <div>
-                    <label for="photo_artiste" class="mb-2 block text-lg font-bold">Photo de l'artiste</label>
+                    <label for="photo_artiste" class="mb-2 block text-lg font-bold lg:mb-3 lg:text-xl">Photo de l'artiste</label>
                     <input 
                         type="file" 
                         id="photo_artiste"
@@ -133,7 +133,7 @@ if (Astro.request.method === "POST") {
                 </div>
 
                 <div>
-                    <label for="description" class="mb-2 block text-lg font-bold">Description</label>
+                    <label for="description" class="mb-2 block text-lg font-bold lg:mb-3 lg:text-xl">Description</label>
                     <textarea 
                         id="description"
                         name="description" 
@@ -143,16 +143,16 @@ if (Astro.request.method === "POST") {
                     >{artisteToEdit?.description || ""}</textarea>
                 </div>
 
-                <div class="flex gap-4">
+                <div class="flex gap-4 lg:gap-6">
                     <button 
                         type="submit" 
-                        class="flex-1 rounded-lg bg-[#E30000] px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-105"
+                        class="flex-1 rounded-lg bg-[#E30000] px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-105 lg:py-5 lg:text-xl"
                     >
                         Ajouter l'artiste
                     </button>
                     <a 
                         href="/artistes" 
-                        class="flex-1 rounded-lg bg-white/20 px-8 py-4 text-center text-lg font-bold text-white transition-transform hover:scale-105"
+                        class="flex-1 rounded-lg bg-white/20 px-8 py-4 text-center text-lg font-bold text-white transition-transform hover:scale-105 lg:py-5 lg:text-xl"
                     >
                         Annuler
                     </a>

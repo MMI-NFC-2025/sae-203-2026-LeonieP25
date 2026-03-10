@@ -25,11 +25,11 @@ for (const artiste of artistesScene) {
 ---
 
 <Layout titre={`${scene.nom_scene} - Échos Sonores`}>
-    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white lg:pt-40 lg:pb-28">
         <div class="col-span-full lg:col-span-10 lg:col-start-2">
-            <a href="/scenes" class="mb-6 inline-block text-lg underline">← Retour aux scènes</a>
+            <a href="/scenes" class="mb-6 inline-block text-lg underline hover:no-underline lg:text-xl lg:mb-10">← Retour aux scènes</a>
             
-            <div class="grid gap-8 md:grid-cols-2">
+            <div class="grid gap-8 md:grid-cols-2 lg:gap-12">
                 {imageUrl && (
                     <div class="overflow-hidden rounded-2xl">
                         <img 
@@ -41,10 +41,10 @@ for (const artiste of artistesScene) {
                 )}
                 
                 <div>
-                    <h1 class="mb-4 text-5xl font-bold">{scene.nom_scene}</h1>
+                    <h1 class="mb-4 text-5xl font-bold lg:text-6xl lg:mb-6">{scene.nom_scene}</h1>
                     
                     {scene.description && (
-                        <div class="text-lg mb-6">
+                        <div class="text-lg mb-6 lg:text-xl lg:mb-8">
                             <p>{scene.description}</p>
                         </div>
                     )}
@@ -52,9 +52,9 @@ for (const artiste of artistesScene) {
             </div>
 
             {artistesAvecImages.length > 0 && (
-                <div class="mt-12">
-                    <h2 class="mb-6 text-3xl font-bold">Artistes sur cette scène</h2>
-                    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div class="mt-12 lg:mt-16">
+                    <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-10">Artistes sur cette scène</h2>
+                    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                         {artistesAvecImages.map((artiste: any) => {
                             const dateStr = artiste.dateheure_representation.replace('T', ' ').replace('Z', '').substring(0, 16);
                             

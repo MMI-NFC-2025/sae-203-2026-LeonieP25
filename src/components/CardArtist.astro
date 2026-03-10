@@ -1,26 +1,26 @@
 ---
 import { getImageUrl } from '../../backend/backend.mjs';
 
-const { nom_artiste, dateheure_representation, photo_artiste, id } = Astro.props;
+const { artiste } = Astro.props;
 
-const imageUrl = photo_artiste ? await getImageUrl(Astro.props, photo_artiste) : null;
-const dateStr = dateheure_representation.replace('T', ' ').replace('Z', '').substring(0, 16);
+const imageUrl = artiste.photo_artiste ? await getImageUrl(artiste, artiste.photo_artiste) : null;
+const dateStr = artiste.dateheure_representation.replace('T', ' ').replace('Z', '').substring(0, 16);
 ---
 
 <li class="overflow-hidden rounded-2xl">
-    <a href={`/artistes/${id}`}>
+    <a href={`/artistes/${artiste.id}`}>
         <div class="relative aspect-[4/3]">
             {imageUrl ? (
                 <img 
                     src={imageUrl} 
-                    alt={nom_artiste}
+                    alt={artiste.nom_artiste}
                     class="h-full w-full object-cover"
                 />
             ) : (
                 <div class="h-full w-full bg-gray-700"></div>
             )}
             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p class="font-bold text-white text-xl">{nom_artiste}</p>
+                <p class="font-bold text-white text-xl">{artiste.nom_artiste}</p>
                 <p class="text-white text-sm">{dateStr}</p>
             </div>
         </div>

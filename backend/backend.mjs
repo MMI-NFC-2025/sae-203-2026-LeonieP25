@@ -5,10 +5,6 @@ export function getImageUrl(record, recordImage) {
     return pb.files.getURL(record, recordImage);
 }
 
-export async function getImageUrl(record, recordImage) {
-    return pb.files.getURL(record, recordImage);
-}
-
 export async function getAllArtistesByDate() {
     const records = await pb.collection('Artistes').getFullList({
         sort: 'dateheure_representation',

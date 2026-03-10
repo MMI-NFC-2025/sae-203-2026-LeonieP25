@@ -15,50 +15,50 @@ for (const artiste of artistes) {
 
 <Layout titre="Artistes - Échos Sonores">
     <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
-        <header class="col-span-full mb-8 text-center lg:col-span-10 lg:col-start-2">
+        <header class="col-span-full mb-8 text-center lg:col-span-10 lg:col-start-2 lg:mb-12">
             <h1 class="text-4xl font-semibold lg:text-5xl">Artistes</h1>
-            <div class="mt-6">
+            <div class="mt-6 lg:mt-8">
                 <a 
                     href="/artistes/add" 
-                    class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white transition-transform hover:scale-105"
+                    class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white transition-transform hover:scale-105 lg:px-12 lg:py-4 lg:text-lg"
                 >
                     + Ajouter un artiste
                 </a>
             </div>
         </header>
 
-        <div class="col-span-full mb-6 lg:col-span-10 lg:col-start-2">
-            <ul class="flex flex-wrap justify-center gap-4">
+        <div class="col-span-full mb-6 lg:col-span-10 lg:col-start-2 lg:mb-10">
+            <ul class="flex flex-wrap justify-center gap-4 lg:gap-6">
                 <li>
-                    <button class="date-filter rounded-lg bg-white px-6 py-2 font-bold text-[#00b44b]" data-date="all">
+                    <button class="date-filter rounded-lg bg-white px-6 py-2 font-bold text-[#00b44b] lg:px-8 lg:py-3 lg:text-lg" data-date="all">
                         Tous
                     </button>
                 </li>
                 <li>
-                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white" data-date="28">
+                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white lg:px-8 lg:py-3 lg:text-lg" data-date="28">
                         28 oct.
                     </button>
                 </li>
                 <li>
-                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white" data-date="29">
+                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white lg:px-8 lg:py-3 lg:text-lg" data-date="29">
                         29 oct.
                     </button>
                 </li>
                 <li>
-                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white" data-date="30">
+                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white lg:px-8 lg:py-3 lg:text-lg" data-date="30">
                         30 oct.
                     </button>
                 </li>
                 <li>
-                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white" data-date="31">
+                    <button class="date-filter rounded-lg bg-[#006711] px-6 py-2 font-bold text-white lg:px-8 lg:py-3 lg:text-lg" data-date="31">
                         31 oct.
                     </button>
                 </li>
             </ul>
         </div>
 
-        <div class="col-span-full mb-8 lg:col-span-10 lg:col-start-2">
-            <label for="searchArtist" class="mb-3 block text-lg font-bold">Rechercher par Scène ou Nom</label>
+        <div class="col-span-full mb-8 lg:col-span-10 lg:col-start-2 lg:mb-12">
+            <label for="searchArtist" class="mb-3 block text-lg font-bold lg:text-xl lg:mb-4">Rechercher par Scène ou Nom</label>
             <input 
                 type="search" 
                 id="searchArtist" 
@@ -106,6 +106,7 @@ for (const artiste of artistes) {
     </section>
 
     <script>
+        // @ts-nocheck
         const searchInput = document.getElementById('searchArtist') as HTMLInputElement | null;
         const artistCards = document.querySelectorAll('.artist-card');
         const noResults = document.getElementById('noResults');

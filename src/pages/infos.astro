@@ -12,94 +12,95 @@ import trainImg from '../assets/icons/train.webp';
             <h1 class="text-4xl font-semibold lg:text-5xl">Infos pratiques</h1>
         </header>
 
-        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
-            <h2 class="mb-6 text-3xl font-bold">Le festival</h2>
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2 lg:mb-16">
+            <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-8">Le festival</h2>
             
-            <p class="mb-6 text-lg">
+            <p class="mb-6 text-lg lg:text-xl lg:mb-8">
                 Dates : du 28 au 31 octobre 2026<br>
                 Lieu : Audincourt, Rue de Dasle
             </p>
 
-            <div class="mb-6 overflow-hidden rounded-4xl">
+        <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:gap-12">
+            <figure>
                 <img 
                     src={mapImg.src} 
-                    alt="Localisation du site du festival Echos Sonores à Audincourt"
-                    class="w-xl"
+                    alt="Plan du site du festival Echos Sonores" 
+                    class="h-auto w-full rounded-4xl"
                 />
-            </div>
+            </figure>
 
-            <div class="text-lg">
+            <div class="text-lg lg:text-xl lg:space-y-2">
                 <p>Ouverture : 15h</p>
                 <p>Fermeture : 2h du matin</p>
                 <p>Concerts principaux en soirée à partir de 20h</p>
             </div>
         </article>
 
-        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
-            <h2 class="mb-6 text-3xl font-bold">Tarifs</h2>
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2 lg:mb-16">
+            <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-8">Tarifs</h2>
 
-            <div class="mb-6 grid gap-6 md:grid-cols-2">
-                <div>
-                    <h3 class="mb-4 text-xl font-bold">Pass multi-jours</h3>
+            <div class="mb-6 grid gap-6 md:grid-cols-2 lg:gap-12 lg:mb-10">
+                <div class="lg:text-lg">
+                    <h3 class="mb-4 text-xl font-bold lg:text-2xl lg:mb-6">Pass multi-jours</h3>
                     <p>Pass 3 jours au choix : 70€</p>
                     <p>Pass 4 jours : 95€</p>
                     <p>Billets à l'unité : 35€</p>
                 </div>
 
-                <div>
-                    <h3 class="mb-4 text-xl font-bold">Tarifs réduits</h3>
+                <div class="lg:text-lg">
+                    <h3 class="mb-4 text-xl font-bold lg:text-2xl lg:mb-6">Tarifs réduits</h3>
                     <p>Tarif étudiant (18–28 ans)</p>
                     <p>Tarif jeune (18–25 ans)</p>
                     <p>Gratuit pour les moins de 12 ans</p>
                 </div>
             </div>
 
-            <a href="/programme" class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white">
+            <a href="/404" class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white transition-transform hover:scale-105 lg:px-12 lg:py-4 lg:text-lg">
                 Billetterie
             </a>
         </article>
 
-        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
-            <h2 class="mb-6 text-3xl font-bold">Hébergement</h2>
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2 lg:mb-16">
+            <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-8">Hébergement</h2>
 
-            <ul class="mb-6 space-y-2 text-lg">
+            <ul class="mb-6 space-y-2 text-lg lg:text-xl lg:space-y-3 lg:mb-10">
                 <li>Hôtel Les Tilleuls Montbéliard sud–Audincourt</li>
                 <li>Hôtel Restaurant du Jura</li>
                 <li>Val Hôtel, Montbéliard Sud</li>
             </ul>
 
-            <a href="#hebergements" class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white">
+            <a href="/404" class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white transition-transform hover:scale-105 lg:px-12 lg:py-4 lg:text-lg">
                 Voir les hébergements
             </a>
         </article>
 
-        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
-            <h2 class="mb-6 text-3xl font-bold">Transport</h2>
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2 lg:mb-16">
+            <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-8">Transport</h2>
 
-            <ul class="grid gap-4 md:grid-cols-3">
+            <ul class="grid gap-4 md:grid-cols-3 lg:gap-8">
                 <li>
-                    <a href="#covoiturage" class="block rounded-lg p-6 text-center text-[#006711] transition-transform hover:scale-105">
+                    <a href="/404" class="block rounded-lg bg-[#E30000] p-6 text-center text-white transition-transform hover:scale-105">
                         <img src={voitureImg.src} alt="Covoiturage" class="mx-auto mb-4 h-24 w-24" />
-                        <p class="font-bold text-[#006711]">Covoiturage</p>
+                        <p class="font-bold text-white">Covoiturage</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#bus" class="block rounded-lg p-6 text-center text-[#006711] transition-transform hover:scale-105">
+                    <a href="/404" class="block rounded-lg bg-[#E30000] p-6 text-center text-white transition-transform hover:scale-105">
                         <img src={busImg.src} alt="Bus" class="mx-auto mb-4 h-24 w-24" />
-                        <p class="font-bold text-[#006711]">Bus</p>
+                        <p class="font-bold text-white">Bus</p>
                     </a>
                 </li>
                 <li>
-                    <a href="#trains" class="block rounded-lgp-6 text-center text-[#006711] transition-transform hover:scale-105">
+                    <a href="/404" class="block rounded-lg bg-[#E30000] p-6 text-center text-white transition-transform hover:scale-105">
                         <img src={trainImg.src} alt="Trains" class="mx-auto mb-4 h-24 w-24" />
-                        <p class="font-bold text-[#006711]">Trains</p>
+                        <p class="font-bold text-white">Trains</p>
                     </a>
                 </li>
             </ul>
         </article>
 
         <article class="col-span-full lg:col-span-10 lg:col-start-2">
-            <h2 class="mb-6 text-3xl font-bold">Questions fréquentes</h2>
+            <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-8">Questions fréquentes</h2>
 
             <div class="space-y-4">
                 <button class="faq-item w-full rounded-lg bg-white/10 px-6 py-4 text-left transition-colors hover:bg-white/20">
@@ -136,6 +137,7 @@ import trainImg from '../assets/icons/train.webp';
     </section>
 
     <script>
+        // @ts-nocheck
         const faqItems = document.querySelectorAll('.faq-item');
         
         faqItems.forEach((item) => {

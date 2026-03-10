@@ -26,11 +26,11 @@ if (artiste.galerie_artiste && artiste.galerie_artiste.length > 0) {
 ---
 
 <Layout titre={`${artiste.nom_artiste} - Échos Sonores`}>
-    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white lg:pt-40 lg:pb-28">
         <div class="col-span-full lg:col-span-10 lg:col-start-2">
-            <a href="/artistes" class="mb-6 inline-block text-lg underline">← Retour aux artistes</a>
+            <a href="/artistes" class="mb-6 inline-block text-lg underline hover:no-underline lg:text-xl lg:mb-10">← Retour aux artistes</a>
             
-            <div class="grid gap-8 md:grid-cols-2">
+            <div class="grid gap-8 md:grid-cols-2 lg:gap-12">
                 {imageUrl && (
                     <div class="overflow-hidden rounded-2xl">
                         <img 
@@ -42,12 +42,12 @@ if (artiste.galerie_artiste && artiste.galerie_artiste.length > 0) {
                 )}
                 
                 <div>
-                    <h1 class="mb-4 text-5xl font-bold">{artiste.nom_artiste}</h1>
-                    <p class="mb-2 text-xl">{dateStr}</p>
-                    {sceneName && <p class="mb-6 text-xl">Scène : {sceneName}</p>}
+                    <h1 class="mb-4 text-5xl font-bold lg:text-6xl lg:mb-6">{artiste.nom_artiste}</h1>
+                    <p class="mb-2 text-xl lg:text-2xl lg:mb-4">{dateStr}</p>
+                    {sceneName && <p class="mb-6 text-xl lg:text-2xl lg:mb-8">Scène : {sceneName}</p>}
                     
                     {artiste.description && (
-                        <div class="text-base">
+                        <div class="text-base lg:text-lg">
                             <p>{artiste.description}</p>
                         </div>
                     )}
@@ -55,9 +55,9 @@ if (artiste.galerie_artiste && artiste.galerie_artiste.length > 0) {
             </div>
 
             {galerieUrls.length > 0 && (
-                <div class="mt-12">
-                    <h2 class="mb-6 text-3xl font-bold">Galerie</h2>
-                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div class="mt-12 lg:mt-16">
+                    <h2 class="mb-6 text-3xl font-bold lg:text-4xl lg:mb-10">Galerie</h2>
+                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
                         {galerieUrls.map((url) => (
                             <div class="overflow-hidden rounded-lg">
                                 <img 
