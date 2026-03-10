@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import mapImg from '../assets/images/mapfestival.jpg';
+import voitureImg from '../assets/icons/voiture.webp';
+import busImg from '../assets/icons/bus.webp';
+import trainImg from '../assets/icons/train.webp';
+---
+
+<Layout titre="Infos pratiques - Échos Sonores">
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+        <header class="col-span-full mb-6 text-center lg:col-span-10 lg:col-start-2">
+            <h1 class="text-4xl font-semibold lg:text-5xl">Infos pratiques</h1>
+        </header>
+
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
+            <h2 class="mb-6 text-3xl font-bold">Le festival</h2>
+            
+            <p class="mb-6 text-lg">
+                Dates : du 28 au 31 octobre 2026<br>
+                Lieu : Audincourt, Rue de Dasle
+            </p>
+
+            <div class="mb-6 overflow-hidden rounded-4xl">
+                <img 
+                    src={mapImg.src} 
+                    alt="Localisation du site du festival Echos Sonores à Audincourt"
+                    class="w-xl"
+                />
+            </div>
+
+            <div class="text-lg">
+                <p>Ouverture : 15h</p>
+                <p>Fermeture : 2h du matin</p>
+                <p>Concerts principaux en soirée à partir de 20h</p>
+            </div>
+        </article>
+
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
+            <h2 class="mb-6 text-3xl font-bold">Tarifs</h2>
+
+            <div class="mb-6 grid gap-6 md:grid-cols-2">
+                <div>
+                    <h3 class="mb-4 text-xl font-bold">Pass multi-jours</h3>
+                    <p>Pass 3 jours au choix : 70€</p>
+                    <p>Pass 4 jours : 95€</p>
+                    <p>Billets à l'unité : 35€</p>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 text-xl font-bold">Tarifs réduits</h3>
+                    <p>Tarif étudiant (18–28 ans)</p>
+                    <p>Tarif jeune (18–25 ans)</p>
+                    <p>Gratuit pour les moins de 12 ans</p>
+                </div>
+            </div>
+
+            <a href="/programme" class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white">
+                Billetterie
+            </a>
+        </article>
+
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
+            <h2 class="mb-6 text-3xl font-bold">Hébergement</h2>
+
+            <ul class="mb-6 space-y-2 text-lg">
+                <li>Hôtel Les Tilleuls Montbéliard sud–Audincourt</li>
+                <li>Hôtel Restaurant du Jura</li>
+                <li>Val Hôtel, Montbéliard Sud</li>
+            </ul>
+
+            <a href="#hebergements" class="inline-block rounded-lg bg-[#E30000] px-8 py-3 font-bold text-white">
+                Voir les hébergements
+            </a>
+        </article>
+
+        <article class="col-span-full mb-12 lg:col-span-10 lg:col-start-2">
+            <h2 class="mb-6 text-3xl font-bold">Transport</h2>
+
+            <ul class="grid gap-4 md:grid-cols-3">
+                <li>
+                    <a href="#covoiturage" class="block rounded-lg p-6 text-center text-[#006711] transition-transform hover:scale-105">
+                        <img src={voitureImg.src} alt="Covoiturage" class="mx-auto mb-4 h-24 w-24" />
+                        <p class="font-bold">Covoiturage</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#bus" class="block rounded-lg p-6 text-center text-[#006711] transition-transform hover:scale-105">
+                        <img src={busImg.src} alt="Bus" class="mx-auto mb-4 h-24 w-24" />
+                        <p class="font-bold">Bus</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#trains" class="block rounded-lg p-6 text-center text-[#006711] transition-transform hover:scale-105">
+                        <img src={trainImg.src} alt="Trains" class="mx-auto mb-4 h-24 w-24" />
+                        <p class="font-bold">Trains</p>
+                    </a>
+                </li>
+            </ul>
+        </article>
+
+        <article class="col-span-full lg:col-span-10 lg:col-start-2">
+            <h2 class="mb-6 text-3xl font-bold">Questions fréquentes</h2>
+
+            <div class="space-y-4">
+                <button class="faq-item w-full rounded-lg bg-white/10 px-6 py-4 text-left transition-colors hover:bg-white/20">
+                    <div class="flex items-start justify-between gap-4">
+                        <span class="font-bold">Quels sont les horaires d'ouverture du festival et des concerts chaque jour ?</span>
+                        <span class="faq-icon text-2xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p>Le festival ouvre ses portes à 15h et ferme à 2h du matin. Les concerts principaux commencent en soirée à partir de 20h.</p>
+                    </div>
+                </button>
+
+                <button class="faq-item w-full rounded-lg bg-white/10 px-6 py-4 text-left transition-colors hover:bg-white/20">
+                    <div class="flex items-start justify-between gap-4">
+                        <span class="font-bold">Quels types de billets sont proposés et comment les acheter ?</span>
+                        <span class="faq-icon text-2xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p>Nous proposons des pass 3 ou 4 jours, ainsi que des billets à l'unité. Rendez-vous sur notre page billetterie pour acheter vos places.</p>
+                    </div>
+                </button>
+
+                <button class="faq-item w-full rounded-lg bg-white/10 px-6 py-4 text-left transition-colors hover:bg-white/20">
+                    <div class="flex items-start justify-between gap-4">
+                        <span class="font-bold">Le festival est-il éco-responsable et quelles actions sont mises en place ?</span>
+                        <span class="faq-icon text-2xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p>Oui, nous mettons en place des actions éco-responsables : tri des déchets, gobelets réutilisables, transports en commun encouragés.</p>
+                    </div>
+                </button>
+            </div>
+        </article>
+    </section>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach((item) => {
+            item.addEventListener('click', function() {
+                const target = item as HTMLElement;
+                const answer = target.querySelector('.faq-answer') as HTMLElement | null;
+                const icon = target.querySelector('.faq-icon') as HTMLElement | null;
+                
+                if (answer && icon) {
+                    if (answer.classList.contains('hidden')) {
+                        answer.classList.remove('hidden');
+                        icon.textContent = '−';
+                    } else {
+                        answer.classList.add('hidden');
+                        icon.textContent = '+';
+                    }
+                }
+            });
+        });
+    </script>
+</Layout>
+

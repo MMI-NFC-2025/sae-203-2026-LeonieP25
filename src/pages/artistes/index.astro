@@ -1,10 +1,12 @@
 ---
+export const prerender = false;
+
 import Layout from '../../layouts/Layout.astro';
 import { getAllArtistesByDate, getImageUrl } from '../../../backend/backend.mjs';
 
-const artistes = await getAllArtistesByDate();
+let artistes = await getAllArtistesByDate();
 
-const artistesAvecImages = [];
+let artistesAvecImages = [];
 for (const artiste of artistes) {
     const imageUrl = artiste.photo_artiste ? await getImageUrl(artiste, artiste.photo_artiste) : null;
     artistesAvecImages.push({ ...artiste, imageUrl });
@@ -53,12 +55,12 @@ for (const artiste of artistes) {
                 type="search" 
                 id="searchArtist" 
                 placeholder="Nom de l'artiste ou de la scène" 
-                class="w-full rounded-lg border-2 border-white bg-white px-6 py-4 text-[#006711] text-lg shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-white/50"
+                class="w-full rounded-2xl bg-[#ffffff] px-6 py-4 text-white text-lg placeholder-black/90 shadow-lg transition-all focus:outline-none focus:ring-4 focus:ring-[#e30000]/50"
             />
         </div>
 
         <ul id="artistsList" class="col-span-full grid gap-6 md:grid-cols-2 lg:col-span-10 lg:col-start-2 lg:grid-cols-3">
-            {artistesAvecImages.map((artiste) => {
+            {artistesAvecImages.map((artiste: any) => {
                 const date = new Date(artiste.dateheure_representation);
                 const day = date.getDate();
                 const sceneName = artiste.expand && artiste.expand.scene_representation ? artiste.expand.scene_representation.nom_scene : '';
@@ -66,7 +68,7 @@ for (const artiste of artistes) {
                 return (
                     <li class="artist-card overflow-hidden rounded-2xl" data-name={artiste.nom_artiste.toLowerCase()} data-scene={sceneName.toLowerCase()} data-date={day}>
                         <a href={`/artistes/${artiste.id}`}>
-                            <div class="relative aspect-[4/3]">
+                            <div class="relative aspect-4/3">
                                 {artiste.imageUrl ? (
                                     <img 
                                         src={artiste.imageUrl} 
@@ -76,11 +78,9 @@ for (const artiste of artistes) {
                                 ) : (
                                     <div class="h-full w-full bg-gray-700"></div>
                                 )}
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                                <div class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
                                     <p class="text-xl font-bold text-white">{artiste.nom_artiste}</p>
-                                    <p class="text-sm text-white">
-                                        {date.toLocaleDateString('fr-FR')} à {date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                                    </p>
+                                    <p class="text-sm text-white">{artiste.dateheure_representation}</p>
                                     {sceneName && <p class="text-sm text-white">Scène : {sceneName}</p>}
                                 </div>
                             </div>
@@ -96,18 +96,18 @@ for (const artiste of artistes) {
     </section>
 
     <script>
-        const searchInput = document.getElementById('searchArtist');
+        const searchInput = document.getElementById('searchArtist') as HTMLInputElement | null;
         const artistCards = document.querySelectorAll('.artist-card');
         const noResults = document.getElementById('noResults');
         const dateFilters = document.querySelectorAll('.date-filter');
         
         let currentDateFilter = 'all';
 
-        dateFilters.forEach(btn => {
-            btn.addEventListener('click', function() {
-                currentDateFilter = this.dataset.date;
+        dateFilters.forEach((btn) => {
+            btn.addEventListener('click', function(this: HTMLButtonElement) {
+                currentDateFilter = this.dataset.date || 'all';
                 
-                dateFilters.forEach(b => {
+                dateFilters.forEach((b) => {
                     b.classList.remove('bg-white', 'text-[#00b44b]');
                     b.classList.add('bg-[#006711]', 'text-white');
                 });
@@ -119,34 +119,40 @@ for (const artiste of artistes) {
             });
         });
 
-        searchInput.addEventListener('input', function() {
-            filterCards();
-        });
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                filterCards();
+            });
+        }
 
         function filterCards() {
+            if (!searchInput) return;
             const searchTerm = searchInput.value.toLowerCase();
             let visibleCount = 0;
 
-            artistCards.forEach(card => {
-                const artistName = card.dataset.name;
-                const sceneName = card.dataset.scene;
-                const cardDate = card.dataset.date;
+            artistCards.forEach((card) => {
+                const htmlCard = card as HTMLElement;
+                const artistName = htmlCard.dataset.name || '';
+                const sceneName = htmlCard.dataset.scene || '';
+                const cardDate = htmlCard.dataset.date || '';
                 
                 const matchesSearch = artistName.includes(searchTerm) || sceneName.includes(searchTerm);
                 const matchesDate = currentDateFilter === 'all' || cardDate === currentDateFilter;
                 
                 if (matchesSearch && matchesDate) {
-                    card.style.display = 'block';
+                    htmlCard.style.display = 'block';
                     visibleCount++;
                 } else {
-                    card.style.display = 'none';
+                    htmlCard.style.display = 'none';
                 }
             });
 
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
+            if (noResults) {
+                if (visibleCount === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
             }
         }
     </script>
