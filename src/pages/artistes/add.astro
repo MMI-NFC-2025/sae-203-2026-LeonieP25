@@ -1,0 +1,163 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import { saveArtiste, getAllScenesByName, getArtisteById } from '../../../backend/backend.mjs';
+
+// Vérifier si on modifie un artiste existant
+const url = new URL(Astro.request.url);
+const editId = url.searchParams.get("edit");
+
+let artisteToEdit = null;
+if (editId) {
+    artisteToEdit = await getArtisteById(editId);
+}
+
+let scenes = await getAllScenesByName();
+
+// Traitement du formulaire
+let message = '';
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    
+    const nomArtiste = formData.get("nom_artiste") as string;
+    const dateheureRepresentation = formData.get("dateheure_representation") as string;
+    const sceneRepresentation = formData.get("scene_representation") as string;
+    const photoArtiste = formData.get("photo_artiste") as File;
+    const description = formData.get("description") as string;
+    
+    if (!nomArtiste || nomArtiste.trim().length < 2) {
+        message = "Le nom de l'artiste doit contenir au moins 2 caractères.";
+    } else if (!dateheureRepresentation) {
+        message = "La date et l'heure de représentation sont requises.";
+    } else if (!sceneRepresentation) {
+        message = "Veuillez sélectionner une scène.";
+    } else if (photoArtiste && photoArtiste.size > 0 && photoArtiste.size > 5 * 1024 * 1024) {
+        message = "L'image ne doit pas dépasser 5 Mo.";
+    } else {
+        try {
+            const data = new FormData();
+            data.append("nom_artiste", nomArtiste);
+            data.append("dateheure_representation", dateheureRepresentation);
+            data.append("scene_representation", sceneRepresentation);
+            if (description) {
+                data.append("description", description);
+            }
+            if (photoArtiste && photoArtiste.size > 0) {
+                data.append("photo_artiste", photoArtiste);
+            }
+            
+            const id = formData.get("artiste_id") as string;
+            if (id) {
+                await saveArtiste(id, data);
+                message = "Artiste modifié avec succès !";
+            } else {
+                await saveArtiste(null, data);
+                message = "Artiste ajouté avec succès !";
+            }
+        } catch (error: any) {
+            message = "Erreur lors de l'ajout de l'artiste : " + (error?.message || String(error));
+        }
+    }
+}
+---
+
+<Layout titre={artisteToEdit ? "Modifier un artiste - Échos Sonores" : "Ajouter un artiste - Échos Sonores"}>
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+        <div class="col-span-full lg:col-span-8 lg:col-start-3">
+            <h1 class="mb-8 text-center text-4xl font-bold lg:text-5xl">{artisteToEdit ? "Modifier" : "Ajouter"} un artiste</h1>
+            
+            {message && (
+                <div class="mb-6 rounded-lg bg-white/20 p-4 text-center text-lg">
+                    {message}
+                </div>
+            )}
+            
+            <form action="/artistes/add" method="POST" enctype="multipart/form-data" class="space-y-6 rounded-2xl bg-white/10 p-8">
+                {artisteToEdit && (
+                    <input type="hidden" name="artiste_id" value={artisteToEdit.id} />
+                )}
+                
+                <div>
+                    <label for="nom_artiste" class="mb-2 block text-lg font-bold">Nom de l'artiste *</label>
+                    <input 
+                        type="text" 
+                        id="nom_artiste"
+                        name="nom_artiste" 
+                        placeholder="Nom de l'artiste" 
+                        value={artisteToEdit?.nom_artiste || ""}
+                        required 
+                        minlength="2" 
+                        maxlength="100"
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] placeholder-[#006711]/60 focus:outline-none focus:ring-4 focus:ring-white/50" 
+                    />
+                </div>
+
+                <div>
+                    <label for="dateheure_representation" class="mb-2 block text-lg font-bold">Date et heure de représentation *</label>
+                    <input 
+                        type="datetime-local" 
+                        id="dateheure_representation"
+                        name="dateheure_representation" 
+                        value={artisteToEdit?.dateheure_representation?.replace('Z', '').substring(0, 16) || ""}
+                        required
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] focus:outline-none focus:ring-4 focus:ring-white/50" 
+                    />
+                </div>
+
+                <div>
+                    <label for="scene_representation" class="mb-2 block text-lg font-bold">Scène *</label>
+                    <select 
+                        id="scene_representation"
+                        name="scene_representation" 
+                        required
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] focus:outline-none focus:ring-4 focus:ring-white/50"
+                    >
+                        <option value="">Sélectionner une scène</option>
+                        {scenes.map((scene: any) => (
+                            <option value={scene.id} selected={artisteToEdit?.scene_representation === scene.id}>{scene.nom_scene}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="photo_artiste" class="mb-2 block text-lg font-bold">Photo de l'artiste</label>
+                    <input 
+                        type="file" 
+                        id="photo_artiste"
+                        name="photo_artiste" 
+                        accept="image/png, image/jpeg, image/jpg, image/webp"
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] focus:outline-none focus:ring-4 focus:ring-white/50" 
+                    />
+                </div>
+
+                <div>
+                    <label for="description" class="mb-2 block text-lg font-bold">Description</label>
+                    <textarea 
+                        id="description"
+                        name="description" 
+                        rows="5"
+                        placeholder="Description de l'artiste..."
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] placeholder-[#006711]/60 focus:outline-none focus:ring-4 focus:ring-white/50"
+                    >{artisteToEdit?.description || ""}</textarea>
+                </div>
+
+                <div class="flex gap-4">
+                    <button 
+                        type="submit" 
+                        class="flex-1 rounded-lg bg-[#E30000] px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-105"
+                    >
+                        Ajouter l'artiste
+                    </button>
+                    <a 
+                        href="/artistes" 
+                        class="flex-1 rounded-lg bg-white/20 px-8 py-4 text-center text-lg font-bold text-white transition-transform hover:scale-105"
+                    >
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</Layout>

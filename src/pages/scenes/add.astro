@@ -1,0 +1,143 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import { saveScene, getAllArtistesByName, getSceneById } from '../../../backend/backend.mjs';
+
+// Vérifier si on modifie une scène existante
+const url = new URL(Astro.request.url);
+const editId = url.searchParams.get("edit");
+
+let sceneToEdit = null;
+if (editId) {
+    sceneToEdit = await getSceneById(editId);
+}
+
+let artistes = await getAllArtistesByName();
+
+// Traitement du formulaire
+let message = '';
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    
+    const nomScene = formData.get("nom_scene") as string;
+    const photoScene = formData.get("photo_scene") as File;
+    const artistesScene = formData.getAll("artistes_scene") as string[];
+    
+    if (!nomScene || nomScene.trim().length < 2) {
+        message = "Le nom de la scène doit contenir au moins 2 caractères.";
+    } else if (photoScene && photoScene.size > 0 && photoScene.size > 5 * 1024 * 1024) {
+        message = "L'image ne doit pas dépasser 5 Mo.";
+    } else {
+        try {
+            const data = new FormData();
+            data.append("nom_scene", nomScene);
+            if (artistesScene && artistesScene.length > 0) {
+                artistesScene.forEach(artisteId => {
+                    data.append("artistes_scene", artisteId);
+                });
+            }
+            if (photoScene && photoScene.size > 0) {
+                data.append("photo_scene", photoScene);
+            }
+            
+            const id = formData.get("scene_id") as string;
+            if (id) {
+                await saveScene(id, data);
+                message = "Scène modifiée avec succès !";
+            } else {
+                await saveScene(null, data);
+                message = "Scène ajoutée avec succès !";
+            }
+        } catch (error: any) {
+            message = "Erreur lors de l'ajout de la scène : " + (error?.message || String(error));
+        }
+    }
+}
+---
+
+<Layout titre={(sceneToEdit ? "Modifier" : "Ajouter") + " une scène - Échos Sonores"}>
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+        <div class="col-span-full lg:col-span-8 lg:col-start-3">
+            <h1 class="mb-8 text-center text-4xl font-bold lg:text-5xl">{sceneToEdit ? "Modifier" : "Ajouter"} une scène</h1>
+            
+            {message && (
+                <div class="mb-6 rounded-lg bg-white/20 p-4 text-center text-lg">
+                    {message}
+                </div>
+            )}
+            
+            <form action="/scenes/add" method="POST" enctype="multipart/form-data" class="space-y-6 rounded-2xl bg-white/10 p-8">
+                {sceneToEdit && (
+                    <input type="hidden" name="scene_id" value={sceneToEdit.id} />
+                )}
+                
+                <div>
+                    <label for="nom_scene" class="mb-2 block text-lg font-bold">Nom de la scène *</label>
+                    <input 
+                        type="text" 
+                        id="nom_scene"
+                        name="nom_scene" 
+                        placeholder="Nom de la scène" 
+                        required 
+                        minlength="2" 
+                        maxlength="100"
+                        value={sceneToEdit?.nom_scene || ""}
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] placeholder-[#006711]/60 focus:outline-none focus:ring-4 focus:ring-white/50" 
+                    />
+                </div>
+
+                <div>
+                    <label for="photo_scene" class="mb-2 block text-lg font-bold">Photo de la scène</label>
+                    <input 
+                        type="file" 
+                        id="photo_scene"
+                        name="photo_scene" 
+                        accept="image/png, image/jpeg, image/jpg, image/webp"
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] focus:outline-none focus:ring-4 focus:ring-white/50" 
+                    />
+                    {sceneToEdit?.photo_scene && (
+                        <p class="mt-2 text-sm opacity-80">Photo actuelle : {sceneToEdit.photo_scene}</p>
+                    )}
+                </div>
+
+                <div>
+                    <label for="artistes_scene" class="mb-2 block text-lg font-bold">Artistes sur cette scène</label>
+                    <select 
+                        id="artistes_scene"
+                        name="artistes_scene" 
+                        multiple
+                        size="8"
+                        class="w-full rounded-lg bg-white px-6 py-4 text-lg text-[#006711] focus:outline-none focus:ring-4 focus:ring-white/50"
+                    >
+                        {artistes.map((artiste: any) => (
+                            <option 
+                                value={artiste.id}
+                                selected={sceneToEdit?.artistes_scene?.includes(artiste.id)}
+                            >
+                                {artiste.nom_artiste}
+                            </option>
+                        ))}
+                    </select>
+                    <p class="mt-2 text-sm opacity-80">Maintenez Ctrl (Windows) ou Cmd (Mac) pour sélectionner plusieurs artistes</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <button 
+                        type="submit" 
+                        class="flex-1 rounded-lg bg-[#E30000] px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-105"
+                    >
+                        {sceneToEdit ? "Modifier" : "Ajouter"} la scène
+                    </button>
+                    <a 
+                        href="/scenes" 
+                        class="flex-1 rounded-lg bg-white/20 px-8 py-4 text-center text-lg font-bold text-white transition-transform hover:scale-105"
+                    >
+                        Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+</Layout>
