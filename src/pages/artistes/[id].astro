@@ -1,0 +1,77 @@
+---
+export const prerender = false;
+
+import Layout from "../../layouts/Layout.astro";
+import { getArtisteById, getImageUrl } from "../../../backend/backend.mjs";
+
+const { id } = Astro.params;
+
+let artiste = await getArtisteById(id);
+
+if (!artiste) {
+    return Astro.redirect("/artistes");
+}
+
+const imageUrl = artiste.photo_artiste ? await getImageUrl(artiste, artiste.photo_artiste) : null;
+const date = new Date(artiste.dateheure_representation);
+const sceneName = artiste.expand && artiste.expand.scene_representation ? artiste.expand.scene_representation.nom_scene : '';
+
+const galerieUrls = [];
+if (artiste.galerie_artiste && artiste.galerie_artiste.length > 0) {
+    for (const photo of artiste.galerie_artiste) {
+        const url = await getImageUrl(artiste, photo);
+        galerieUrls.push(url);
+    }
+}
+---
+
+<Layout titre={`${artiste.nom_artiste} - Échos Sonores`}>
+    <section class="grille bg-[#00b44b] px-8 pt-32 pb-20 font-montserrat text-white">
+        <div class="col-span-full lg:col-span-10 lg:col-start-2">
+            <a href="/artistes" class="mb-6 inline-block text-lg underline">← Retour aux artistes</a>
+            
+            <div class="grid gap-8 md:grid-cols-2">
+                {imageUrl && (
+                    <div class="overflow-hidden rounded-2xl">
+                        <img 
+                            src={imageUrl} 
+                            alt={artiste.nom_artiste}
+                            class="h-full w-full object-cover"
+                        />
+                    </div>
+                )}
+                
+                <div>
+                    <h1 class="mb-4 text-5xl font-bold">{artiste.nom_artiste}</h1>
+                    <p class="mb-2 text-xl">
+                        {date.toLocaleDateString('fr-FR')} à {date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                    {sceneName && <p class="mb-6 text-xl">Scène : {sceneName}</p>}
+                    
+                    {artiste.description && (
+                        <div class="text-base">
+                            <p>{artiste.description}</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {galerieUrls.length > 0 && (
+                <div class="mt-12">
+                    <h2 class="mb-6 text-3xl font-bold">Galerie</h2>
+                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        {galerieUrls.map((url) => (
+                            <div class="overflow-hidden rounded-lg">
+                                <img 
+                                    src={url} 
+                                    alt={`${artiste.nom_artiste} - Photo de galerie`}
+                                    class="h-full w-full object-cover"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    </section>
+</Layout>
