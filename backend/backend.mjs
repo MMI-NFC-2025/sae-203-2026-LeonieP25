@@ -76,3 +76,47 @@ export async function saveScene(id, data) {
         return record;
     }
 }
+
+export async function Userauth(login, mdp) {
+    try {
+        const authData = await pb.collection('users').authWithPassword(login, mdp);
+        console.log("Utilisateur connecté :", pb.authStore.model.email);
+        return authData;
+    } catch (error) {
+        console.error("Erreur de connexion :", error.message);
+        return null;
+    }
+}
+
+export async function createUser(email, password, passwordConfirm, name = "") {
+    try {
+        const data = {
+            "email": email,
+            "emailVisibility": true,
+            "password": password,
+            "passwordConfirm": passwordConfirm,
+            "name": name
+        };
+        const record = await pb.collection('users').create(data);
+        return record;
+    } catch (error) {
+        console.error("Erreur lors de la création de l'utilisateur :", error.message);
+        return null;
+    }
+}
+
+export function isLogged() {
+    return pb.authStore.isValid;
+}
+
+export function logout() {
+    pb.authStore.clear();
+    console.log("Utilisateur déconnecté");
+}
+
+export function getUserInfo() {
+    if (isLogged()) {
+        return pb.authStore.model;
+    }
+    return null;
+}

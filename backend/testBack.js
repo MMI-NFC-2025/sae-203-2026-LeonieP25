@@ -1,4 +1,4 @@
-import { getAllArtistesByDate, getAllScenesByName, getAllArtistesByName, getArtisteById, getSceneById, getArtistesBySceneId } from './backend/backend.mjs';
+import { getAllArtistesByDate, getAllScenesByName, getAllArtistesByName, getArtisteById, getSceneById, getArtistesBySceneId } from './backend.mjs';
 
 // Test : récupérer tous les artistes par date
 /*
@@ -36,7 +36,7 @@ try {
 // Test : récupérer un artiste par ID
 /*
 try {
-    const artiste = await getArtisteById('RECORD_ID');
+    const artiste = await getArtisteById('tybs6etayxc5140');
     console.log('Artiste par ID :');
     console.table(artiste);
 } catch (e) {
@@ -47,7 +47,7 @@ try {
 // Test : récupérer une scène par ID
 /*
 try {
-    const scene = await getSceneById('RECORD_ID');
+    const scene = await getSceneById('tybs6etayxc5140');
     console.log('Scène par ID :');
     console.table(scene);
 } catch (e) {
@@ -58,7 +58,7 @@ try {
 // Test : récupérer les artistes d'une scène spécifique
 /*
 try {
-    const artistes = await getArtistesBySceneId('SCENE_ID');
+    const artistes = await getArtistesBySceneId('8zxnlwvntqjk1gi');
     console.log('Artistes de la scène :');
     console.table(artistes);
 } catch (e) {
