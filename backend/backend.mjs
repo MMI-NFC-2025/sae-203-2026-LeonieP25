@@ -1,5 +1,5 @@
 import PocketBase from 'pocketbase';
-const pb = new PocketBase('https://festival.leonie-pruniaux.fr');
+const pb = new PocketBase('https://festival.leonie-pruniaux.fr/_/');
 
 // Génère l'URL d'une image stockée dans PocketBase
 export function getImageUrl(record, recordImage) {
