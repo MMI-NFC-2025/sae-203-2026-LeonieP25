@@ -2,4 +2,5 @@
 - Nom: Pruniaux
 - Prénom: Léonie
 - url: Netlify : https://sae203leoniepruniaux.netlify.app/
-
+- url: Infomaniak : https://sae203-echossonores.leonie-pruniaux.fr/
+- url: Pocketbase : https://festival.leonie-pruniaux.fr:443
